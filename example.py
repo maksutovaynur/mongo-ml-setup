@@ -1,8 +1,9 @@
+import sys
+
 import pandas as pd
 import pymongo as pm
-import sys
-from ml_mongo import DbTable
 
+from ml_mongo import DbTable
 
 db = DbTable("mongodb://localhost:27017", "my_database", "iris")
 db.create_index("Index", pm.ASCENDING, unique=True)
