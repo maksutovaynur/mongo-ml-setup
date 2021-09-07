@@ -43,6 +43,9 @@ example-filter:
 example-insert:
 	@python example.py insert
 
+example-update-nan:
+	@python example.py update-nan
+
 example-remove:
 	@python example.py remove
 

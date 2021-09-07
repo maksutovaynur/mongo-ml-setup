@@ -48,6 +48,13 @@ class DbTable:
         _prepare_filter(filter)
         return self._coll.remove(filter)
 
+    def update_one(self, filter: dict, update: dict) -> pm.results.UpdateResult:
+        _prepare_filter(filter)
+        return self._coll.update_one(filter, update)
+
+    def update_many(self, filter: dict, update: dict) -> pm.results.UpdateResult:
+        _prepare_filter(filter)
+        return self._coll.update_many(filter, update)
 
 def _prepare_filter(d: dict):
     _id = d.get("_id", None)

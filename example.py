@@ -19,6 +19,8 @@ if command == "populate":
     iris.iat[6, 4] = np.NAN
     print(iris.head())
     print(f"#{len(db.insert_by_chunks((r._asdict() for r in iris.itertuples(index=True))).inserted_ids)} new docs inserted")
+elif command == "update-nan":
+    print(db.update_many({'species': np.NAN}, {'$set': {'species_was_nan': True, 'species': ""}}))
 elif command == "filter":
     print(',\n'.join(map(str, db.find_many(
             {
