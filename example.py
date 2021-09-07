@@ -2,6 +2,7 @@ import sys
 
 import pandas as pd
 import pymongo as pm
+import numpy as np
 
 from ml_mongo import DbTable
 
@@ -14,6 +15,8 @@ command = sys.argv[1]
 
 if command == "populate":
     iris = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv')
+    iris.iat[5, 0] = np.NAN
+    iris.iat[6, 4] = np.NAN
     print(iris.head())
     print(f"#{len(db.insert_by_chunks((r._asdict() for r in iris.itertuples(index=True))).inserted_ids)} new docs inserted")
 elif command == "filter":
@@ -27,5 +30,7 @@ elif command == "filter":
     ))))
 elif command == 'insert':
     print(db.insert_one({'Index': 999, 'additional_field': ['val1', 'val2', 'val3'], 'species': 'virginica'}).inserted_id)
+elif command == 'find-na':
+    print(db.find_one({'species': np.NAN})['species'])
 elif command == 'remove':
     print(db.remove_many({'additional_field': 'val1'}))

@@ -46,6 +46,9 @@ example-insert:
 example-remove:
 	@python example.py remove
 
+example-find-na:
+	@python example.py find-na
+
 db-flush:
 	@docker exec -it ml-mongo mongo my_database --eval "db.iris.remove({})"
 
