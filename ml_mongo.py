@@ -43,6 +43,10 @@ class DbTable:
         _prepare_filter(filter)
         return self._coll.find(filter, projection)
 
+    def remove_many(self, filter):
+        _prepare_filter(filter)
+        return self._coll.remove(filter)
+
 
 def _prepare_filter(d: dict):
     _id = d.get("_id", None)

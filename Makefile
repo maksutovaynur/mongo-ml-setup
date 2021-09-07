@@ -25,7 +25,7 @@ _test-docker:
 
 install-docker: | _install-docker _install-docker-compose _test-docker _add-docker-group
 
-_install-requirements-py:
+install-requirements-py:
 	@pip install -r requirements.txt
 
 up:
@@ -34,14 +34,23 @@ up:
 down:
 	@docker-compose down
 
-example-populate: _install-requirements-py up
-	@python example.py
+example-populate:
+	@python example.py populate
 
-example-flush: up
+example-filter:
+	@python example.py filter
+
+example-insert:
+	@python example.py insert
+
+example-remove:
+	@python example.py remove
+
+db-flush:
 	@docker exec -it ml-mongo mongo my_database --eval "db.iris.remove({})"
 
-example-browse: up
+db-browse:
 	@xdg-open http://localhost:9081
 
-example-shell: up
-	@docker exec -it ml-mongo mongo
+db-shell:
+	@docker exec -it ml-mongo mongo my_database
