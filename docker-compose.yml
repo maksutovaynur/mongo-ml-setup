@@ -6,6 +6,7 @@ services:
     image: mongo:4.4.6
     volumes:
       - ${MONGO_VOLUME:-./data/db}:/data/db
+      - ./mongod.conf:/etc/mongod.conf:ro
     ports:
       - ${MONGO_PORT:-27017}:27017
 
